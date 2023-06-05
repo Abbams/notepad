@@ -2,6 +2,7 @@ QT += core gui widgets
 TEMPLATE = app
 CONFIG += c++11
 SOURCES = mainwindow.cpp \
+    data_time.cpp \
     main.cpp \
     avatarsettingseditor.cpp \
     badgesettingseditor.cpp \
@@ -15,6 +16,7 @@ SOURCES = mainwindow.cpp \
     circularprogresssettingseditor.cpp \
     slidersettingseditor.cpp \
     radiobuttonsettingseditor.cpp \
+    to_do_event.cpp \
     togglesettingseditor.cpp \
     textfieldsettingseditor.cpp \
     tabssettingseditor.cpp \
@@ -29,6 +31,7 @@ HEADERS = mainwindow.h \
     avatarsettingseditor.h \
     badgesettingseditor.h \
     checkboxsettingseditor.h \
+    data_time.h \
     fabsettingseditor.h \
     memo.h \
     raisedbuttonsettingseditor.h \
@@ -38,6 +41,7 @@ HEADERS = mainwindow.h \
     circularprogresssettingseditor.h \
     slidersettingseditor.h \
     radiobuttonsettingseditor.h \
+    to_do_event.h \
     togglesettingseditor.h \
     textfieldsettingseditor.h \
     tabssettingseditor.h \

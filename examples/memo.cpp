@@ -3,57 +3,103 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QColorDialog>
 #include <qtmaterialappbar.h>
+#include <QVBoxLayout>
 #include <qtmaterialiconbutton.h>
+#include <qtmaterialavatar.h>
 #include <lib/qtmaterialtheme.h>
+#include <qtmaterialdrawer.h>
 #include <QLabel>
+#include <qtmaterialflatbutton.h>
+#include <qtmaterialfab.h>
 memo::memo(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::memo),
-    appBar(new QtMaterialAppBar)
+    ui(new Ui::memo)
 {
     ui->setupUi(this);
-    QLabel *label = new QLabel("menu");
-    label->setAttribute(Qt::WA_TranslucentBackground);
-    label->setForegroundRole(QPalette::Foreground);
-    label->setContentsMargins(6, 0, 0, 0);
+    appBar=new QtMaterialAppBar(ui->widget_appbar);
+    drawer=new QtMaterialDrawer(ui->widget);
+    ztys=QColor(170, 119, 255);
+    a1=QColor(170, 119, 255);
+    a2=QColor(170, 119, 255);
+    a3=QColor(1,1,1);
+    a4=QColor(110,231,214);
+    init_appbar();
+    init_actnut();
+    this->setContentsMargins(0, 0, 0, 0);
 
-    QPalette palette = label->palette();
-    palette.setColor(label->foregroundRole(), Qt::white);
-    label->setPalette(palette);
-
-    label->setFont(QFont("Roboto", 18, QFont::Normal));
-
-    QtMaterialIconButton *button = new QtMaterialIconButton(QtMaterialTheme::icon("navigation", "menu"));
-    button->setIconSize(QSize(24, 24));
-    appBar->appBarLayout()->addWidget(button);
-    appBar->appBarLayout()->addWidget(label);
-    appBar->appBarLayout()->addStretch(1);
-    button->setColor(Qt::white);
-    button->setFixedWidth(42);
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    setLayout(layout);
-
-    QWidget *widget = new QWidget;
-    layout->addWidget(widget);
-
-    QWidget *canvas = new QWidget;
-    canvas->setStyleSheet("QWidget { background: white; }");
-    layout->addWidget(canvas);
-
-    layout->setContentsMargins(20, 20, 20, 20);
-
-    layout = new QVBoxLayout;
-    canvas->setLayout(layout);
-    canvas->setMaximumHeight(300);
-    layout->addWidget(appBar);
-    layout->addStretch(1);
-    appBar->setParent(this);
-    appBar->setFixedSize({800,50});
-    appBar->show();
 }
 
 memo::~memo()
 {
     delete ui;
+}
+
+void memo::init_appbar()
+{
+    //文字
+    QLabel *label = new QLabel("menu");
+    label->setAttribute(Qt::WA_TranslucentBackground);
+    label->setForegroundRole(QPalette::Foreground);
+    label->setContentsMargins(0, 0, 0, 0);
+    //画笔
+    QPalette palette = label->palette();
+    palette.setColor(label->foregroundRole(), a1);
+    label->setPalette(palette);
+    label->setFont(QFont("Roboto", 20, QFont::Normal));
+    //按键
+    QtMaterialIconButton *button = new QtMaterialIconButton(QtMaterialTheme::icon("navigation", "menu"));
+    button->setColor(a3);
+    button->setFixedWidth(50);
+    button->setIconSize(QSize(25, 25));
+    //用户头像
+    QtMaterialAvatar * use_img=new QtMaterialAvatar();
+//    use_img->setParent(this);
+    use_img->setImage(QImage(":/images/assets/sikh.jpg"));
+    use_img->setSize(33);
+
+    init_drawer();
+    //添加组件
+    appBar->setBackgroundColor(a1);
+    appBar->appBarLayout()->addWidget(button);
+    appBar->appBarLayout()->addWidget(label,2);
+    appBar->appBarLayout()->addWidget(use_img);
+    appBar->setParent(ui->widget_appbar);
+    appBar->setFixedSize({800,50});
+    connect(button,&QtMaterialIconButton::pressed,[&](){
+
+        drawer->openDrawer();
+
+    });
+    appBar->show();
+}
+
+void memo::init_drawer()
+{
+
+    QVBoxLayout *drawerLayout = new QVBoxLayout;
+    drawer->setDrawerLayout(drawerLayout);
+    QVector<QString> labels={"设置","待办"};
+    QVector<QString>::iterator it;
+    for (it = labels.begin(); it != labels.end(); ++it) {
+         QtMaterialFlatButton* label = new QtMaterialFlatButton(*it);
+        label->setBackgroundColor(a3);
+
+        label->setMaximumHeight(30);
+        label->setFont(QFont("Roboto", 10, QFont::Medium));
+        drawer->drawerLayout()->addWidget(label);
+
+    }
+    drawer->setClickOutsideToClose(true);
+    drawer->setOverlayMode(true);
+    drawerLayout->setAlignment(Qt::AlignTop);
+}
+
+void memo::init_actnut()
+{
+    act_but=new QtMaterialFloatingActionButton(QtMaterialTheme::icon("toggle", "star"));
+    act_but->setMini(1);
+    connect(act_but,&QtMaterialRaisedButton::pressed,[](){
+
+    });
+    act_but->setParent(ui->widget_2);
 }
