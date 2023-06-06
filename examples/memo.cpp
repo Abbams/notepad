@@ -16,6 +16,7 @@ memo::memo(QWidget *parent) :
     ui(new Ui::memo)
 {
     ui->setupUi(this);
+    open_database();
     appBar=new QtMaterialAppBar(ui->widget_appbar);
     drawer=new QtMaterialDrawer(ui->widget);
     ztys=QColor(170, 119, 255);
@@ -26,6 +27,10 @@ memo::memo(QWidget *parent) :
     init_appbar();
     init_actnut();
     this->setContentsMargins(0, 0, 0, 0);
+
+
+
+
 
 }
 
@@ -102,4 +107,24 @@ void memo::init_actnut()
 
     });
     act_but->setParent(ui->widget_2);
+}
+
+void memo::open_database()
+{
+    data_base = QSqlDatabase::database("qt_sql_default_connection");
+  data_base = QSqlDatabase::addDatabase("QSQLITE");
+    data_base.setDatabaseName("MEMO_data.db");
+    data_base.setUserName("data");
+    data_base.setPassword("123456");
+
+    if (!data_base.open())
+    {
+        qDebug() << "Error: Failed to connect database." << data_base.lastError();
+    }
+    listmod=new QSqlTableModel(this,data_base);
+    listmod->setTable("'do-thing'");
+    listmod->setEditStrategy(QSqlTableModel::OnManualSubmit); // 设置编辑策略
+
+    listmod->select();
+    ui->listView->setModel(listmod);
 }

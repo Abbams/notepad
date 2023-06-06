@@ -5,7 +5,12 @@
 #include <QWidget>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QHBoxLayout>
+#include <QSqlDatabase>
+#include <QSqlQuery>
 #include <QDebug>
+#include <QStandardItemModel>
+#include <QSqlTableModel>
+#include <QSqlError>
 class QtMaterialAppBar;
 class QtMaterialDrawer;
 class QtMaterialFloatingActionButton;
@@ -24,6 +29,7 @@ public:
     void init_appbar();
     void init_drawer();
     void init_actnut();
+    void open_database();
 private:
     Ui::memo *ui;
     QColor a1;
@@ -31,6 +37,8 @@ private:
     QColor a3;
     QColor a4;
     QColor ztys;
+    QSqlDatabase data_base;
+    QSqlTableModel *listmod;
     QtMaterialAppBar                    * appBar   ;
     QtMaterialDrawer                    * drawer   ;
     QtMaterialFloatingActionButton      * act_but  ;

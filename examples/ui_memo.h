@@ -11,6 +11,8 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QWidget>
 
@@ -22,6 +24,8 @@ public:
     QWidget *centralwidget;
     QWidget *widget;
     QWidget *widget_2;
+    QLabel *label;
+    QListView *listView;
     QWidget *widget_appbar;
 
     void setupUi(QMainWindow *memo)
@@ -43,6 +47,13 @@ public:
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
         widget_2->setGeometry(QRect(500, 0, 300, 550));
         widget_2->setStyleSheet(QString::fromUtf8("background-color: rgb(151, 222, 255);"));
+        label = new QLabel(widget_2);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(20, 10, 261, 221));
+        label->setStyleSheet(QString::fromUtf8("color:white;font:60px \\\"Microsoft YaHei\\\",simhei;font-weight:regular;"));
+        listView = new QListView(widget);
+        listView->setObjectName(QString::fromUtf8("listView"));
+        listView->setGeometry(QRect(70, 40, 401, 481));
         widget_appbar = new QWidget(centralwidget);
         widget_appbar->setObjectName(QString::fromUtf8("widget_appbar"));
         widget_appbar->setGeometry(QRect(0, 0, 800, 50));
@@ -57,6 +68,9 @@ public:
     void retranslateUi(QMainWindow *memo)
     {
         memo->setWindowTitle(QCoreApplication::translate("memo", "MainWindow", nullptr));
+        label->setText(QCoreApplication::translate("memo", "12:20:12\n"
+"\346\230\237\346\234\237\344\272\214\n"
+"6/12", nullptr));
     } // retranslateUi
 
 };
