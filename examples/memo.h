@@ -11,6 +11,7 @@
 #include <QStandardItemModel>
 #include <QSqlTableModel>
 #include <QSqlError>
+#include <QTimer>
 class QtMaterialAppBar;
 class QtMaterialDrawer;
 class QtMaterialFloatingActionButton;
@@ -38,7 +39,7 @@ private:
     QColor a4;
     QColor ztys;
     QSqlDatabase data_base;
-    QSqlTableModel *listmod;
+    QSqlQueryModel *listmod;
     QtMaterialAppBar                    * appBar   ;
     QtMaterialDrawer                    * drawer   ;
     QtMaterialFloatingActionButton      * act_but  ;

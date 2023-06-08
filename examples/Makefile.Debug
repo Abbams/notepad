@@ -1109,8 +1109,17 @@ debug/moc_memo.cpp: memo.h \
 		D:/QT/5.15.2/mingw81_64/include/QtSql/QSqlQuery \
 		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqlquery.h \
 		D:/QT/5.15.2/mingw81_64/include/QtCore/QDebug \
+		D:/QT/5.15.2/mingw81_64/include/QtGui/QStandardItemModel \
+		D:/QT/5.15.2/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qabstractitemmodel.h \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/QSqlTableModel \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqltablemodel.h \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqlquerymodel.h \
 		D:/QT/5.15.2/mingw81_64/include/QtSql/QSqlError \
 		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqlerror.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/QTimer \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qtimer.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qbasictimer.h \
 		debug/moc_predefs.h \
 		D:/QT/5.15.2/mingw81_64/bin/moc.exe
 	D:\QT\5.15.2\mingw81_64\bin\moc.exe $(DEFINES) --include D:/QT/poject/qt-material-widgets/examples/debug/moc_predefs.h -ID:/QT/5.15.2/mingw81_64/mkspecs/win32-g++ -ID:/QT/poject/qt-material-widgets/examples -ID:/QT/poject/qt-material-widgets/components -ID:/QT/5.15.2/mingw81_64/include -ID:/QT/5.15.2/mingw81_64/include/QtWidgets -ID:/QT/5.15.2/mingw81_64/include/QtGui -ID:/QT/5.15.2/mingw81_64/include/QtANGLE -ID:/QT/5.15.2/mingw81_64/include/QtSql -ID:/QT/5.15.2/mingw81_64/include/QtCore -ID:/QT/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -ID:/QT/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -ID:/QT/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -ID:/QT/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -ID:/QT/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -ID:/QT/Tools/mingw810_64/x86_64-w64-mingw32/include memo.h -o debug\moc_memo.cpp
@@ -3781,7 +3790,39 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		menusettingseditor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o mainwindow.cpp
 
-debug/data_time.o: data_time.cpp data_time.h
+debug/data_time.o: data_time.cpp data_time.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/QString \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qstring.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qchar.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qglobal.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qconfig.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qtcore-config.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qsystemdetection.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qprocessordetection.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qcompilerdetection.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qtypeinfo.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qsysinfo.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qlogging.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qflags.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qatomic.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qbasicatomic.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qatomic_bootstrap.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qgenericatomic.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qatomic_cxx11.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qatomic_msvc.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qglobalstatic.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qmutex.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qnumeric.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qversiontagging.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qbytearray.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qrefcount.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qnamespace.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qarraydata.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qstringliteral.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qstringalgorithms.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qstringview.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qstringbuilder.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\data_time.o data_time.cpp
 
 debug/main.o: main.cpp D:/QT/5.15.2/mingw81_64/include/QtWidgets/QApplication \
@@ -3912,8 +3953,17 @@ debug/main.o: main.cpp D:/QT/5.15.2/mingw81_64/include/QtWidgets/QApplication \
 		D:/QT/5.15.2/mingw81_64/include/QtSql/qtsql-config.h \
 		D:/QT/5.15.2/mingw81_64/include/QtSql/QSqlQuery \
 		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqlquery.h \
+		D:/QT/5.15.2/mingw81_64/include/QtGui/QStandardItemModel \
+		D:/QT/5.15.2/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qabstractitemmodel.h \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/QSqlTableModel \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqltablemodel.h \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqlquerymodel.h \
 		D:/QT/5.15.2/mingw81_64/include/QtSql/QSqlError \
-		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqlerror.h
+		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqlerror.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/QTimer \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qtimer.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qbasictimer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o main.cpp
 
 debug/avatarsettingseditor.o: avatarsettingseditor.cpp avatarsettingseditor.h \
@@ -4692,8 +4742,17 @@ debug/memo.o: memo.cpp memo.h \
 		D:/QT/5.15.2/mingw81_64/include/QtSql/QSqlQuery \
 		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqlquery.h \
 		D:/QT/5.15.2/mingw81_64/include/QtCore/QDebug \
+		D:/QT/5.15.2/mingw81_64/include/QtGui/QStandardItemModel \
+		D:/QT/5.15.2/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qabstractitemmodel.h \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/QSqlTableModel \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqltablemodel.h \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqlquerymodel.h \
 		D:/QT/5.15.2/mingw81_64/include/QtSql/QSqlError \
 		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqlerror.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/QTimer \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qtimer.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qbasictimer.h \
 		ui_memo.h \
 		D:/QT/5.15.2/mingw81_64/include/QtCore/QVariant \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/QApplication \
@@ -4706,6 +4765,21 @@ debug/memo.o: memo.cpp memo.h \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/QLabel \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qlabel.h \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qframe.h \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/QListView \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qlistview.h \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qabstractitemview.h \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qitemselectionmodel.h \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qstyleoption.h \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qabstractspinbox.h \
+		D:/QT/5.15.2/mingw81_64/include/QtGui/qvalidator.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qregularexpression.h \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qslider.h \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qabstractslider.h \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qstyle.h \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qtabbar.h \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qrubberband.h \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/QVBoxLayout \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/QColorDialog \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qcolordialog.h \
@@ -4726,7 +4800,9 @@ debug/memo.o: memo.cpp memo.h \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/QPushButton \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qpushbutton.h \
 		../components/qtmaterialfab.h \
-		../components/qtmaterialraisedbutton.h
+		../components/qtmaterialraisedbutton.h \
+		data_time.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\memo.o memo.cpp
 
 debug/raisedbuttonsettingseditor.o: raisedbuttonsettingseditor.cpp raisedbuttonsettingseditor.h \

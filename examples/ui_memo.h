@@ -53,7 +53,10 @@ public:
         label->setStyleSheet(QString::fromUtf8("color:white;font:60px \\\"Microsoft YaHei\\\",simhei;font-weight:regular;"));
         listView = new QListView(widget);
         listView->setObjectName(QString::fromUtf8("listView"));
-        listView->setGeometry(QRect(70, 40, 401, 481));
+        listView->setGeometry(QRect(10, 10, 471, 531));
+        listView->setResizeMode(QListView::Fixed);
+        listView->setSpacing(5);
+        listView->setItemAlignment(Qt::AlignCenter);
         widget_appbar = new QWidget(centralwidget);
         widget_appbar->setObjectName(QString::fromUtf8("widget_appbar"));
         widget_appbar->setGeometry(QRect(0, 0, 800, 50));

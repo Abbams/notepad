@@ -11,6 +11,7 @@
 #include <QLabel>
 #include <qtmaterialflatbutton.h>
 #include <qtmaterialfab.h>
+#include <data_time.h>
 memo::memo(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::memo)
@@ -27,8 +28,12 @@ memo::memo(QWidget *parent) :
     init_appbar();
     init_actnut();
     this->setContentsMargins(0, 0, 0, 0);
+    QTimer *ti=new QTimer;
+    connect(ti,&QTimer::timeout,[&](){
 
-
+        ui->label->setText(data_time::getInstance().putinf());
+    });
+    ti->start(1000);
 
 
 
@@ -121,10 +126,9 @@ void memo::open_database()
     {
         qDebug() << "Error: Failed to connect database." << data_base.lastError();
     }
-    listmod=new QSqlTableModel(this,data_base);
-    listmod->setTable("'do-thing'");
-    listmod->setEditStrategy(QSqlTableModel::OnManualSubmit); // 设置编辑策略
-
-    listmod->select();
+    listmod=new  QSqlQueryModel();
+    listmod->setQuery("select * from 'do-thing'") ;
     ui->listView->setModel(listmod);
+    ui->listView->setModelColumn(2);
+    ui->listView->update();
 }
