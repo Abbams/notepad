@@ -153,7 +153,7 @@ void memo::init_actnut()
     act_but=new QtMaterialFloatingActionButton(QtMaterialTheme::icon("toggle", "star"));
     act_but->setMini(1);
     m_snackbar=new QtMaterialSnackbar(this);
-    m_snackbar->addMessage("test");
+//    m_snackbar->addMessage("test");
     mydialog=new QtMaterialDialog;
     mydialog->setParent(this);
 
@@ -229,6 +229,37 @@ void memo::open_database()
     {
         qDebug() << "Error: Failed to connect database." << data_base.lastError();
     }
+    QSqlQuery query;
+    // 禁用外键约束
+    query.exec("PRAGMA foreign_keys = false");
+
+    // 删除表格
+    query.exec("DROP TABLE IF EXISTS 'do-thing'");
+
+    // 创建表格
+    query.exec("CREATE TABLE 'do-thing' ("
+               " 'id' INTEGER NOT NULL,"
+               " 'Time' DATE,"
+               " 'things' TEXT,"
+               " 'finsh' integer DEFAULT 0,"
+               " PRIMARY KEY ('id')"
+               ")");
+
+    // 创建唯一索引
+    query.exec("CREATE UNIQUE INDEX 'unique_columns' ON 'do-thing' ('Time' ASC, 'things' ASC)");
+
+    // 启用外键约束
+    query.exec("PRAGMA foreign_keys = true");
+
+    // 检查执行结果
+    if (query.lastError().isValid()) {
+        qDebug() << "Error creating table:" << query.lastError().text();
+    } else {
+        qDebug() << "Table created successfully.";
+    }
+
+
+
     listmod=new  QSqlQueryModel();
     listmod->setQuery("select * from 'do-thing' WHERE finsh==0 ORDER BY Time  ;") ;
     ui->listView->setModel(listmod);
@@ -273,11 +304,11 @@ void memo::determine()
 
             q.exec("SELECT * FROM 'do-thing' WHERE time >= '"+data_time::getInstance().data()+"' and finsh=0 ORDER BY time ASC LIMIT 1;");
             q.next();
-            qDebug()<<data_time::getInstance().data();
-            qDebug()<<q.value(1).toString();
+//            qDebug()<<data_time::getInstance().data();
+//            qDebug()<<q.value(1).toString();
     if(data_time::getInstance().data()==q.value(1).toString())
     {
-        qDebug()<<"!!!!!!!!!";
+//        qDebug()<<"!!!!!!!!!";
         data_base.exec("UPDATE 'do-thing'\
                        SET finsh=1\
                        WHERE uid = "+q.value(0).toString()+";");

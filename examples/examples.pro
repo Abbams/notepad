@@ -54,8 +54,8 @@ HEADERS = mainwindow.h \
     appbarsettingseditor.h \
     autocompletesettingseditor.h \
     menusettingseditor.h
-LIBS += $$top_builddir/components/$(OBJECTS_DIR)/libcomponents.a  D:/QT/poject/qt-material-widgets/examples/libcurl-x64.dll
-INCLUDEPATH += $$top_srcdir/components/  D:/QT/poject/qt-material-widgets/examples/include
+LIBS += $$top_builddir/components/$(OBJECTS_DIR)/libcomponents.a  $$top_builddir/examples/libcurl-x64.dll
+INCLUDEPATH += $$top_srcdir/components/  $$top_srcdir/examples/include
 TARGET = examples-exe
 PRE_TARGETDEPS += $$top_builddir/components/$(OBJECTS_DIR)/libcomponents.a
 

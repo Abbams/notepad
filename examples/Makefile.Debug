@@ -1135,6 +1135,17 @@ debug/moc_memo.cpp: memo.h \
 		D:/QT/5.15.2/mingw81_64/include/QtCore/QObject \
 		D:/QT/5.15.2/mingw81_64/include/QtGui/QColor \
 		D:/QT/5.15.2/mingw81_64/include/QtGui/QIcon \
+		request.h \
+		include/curl/curl.h \
+		include/curl/curlver.h \
+		include/curl/system.h \
+		include/curl/easy.h \
+		include/curl/multi.h \
+		include/curl/urlapi.h \
+		include/curl/options.h \
+		include/curl/header.h \
+		include/curl/websockets.h \
+		include/curl/typecheck-gcc.h \
 		debug/moc_predefs.h \
 		D:/QT/5.15.2/mingw81_64/bin/moc.exe
 	D:\QT\5.15.2\mingw81_64\bin\moc.exe $(DEFINES) --include D:/QT/poject/qt-material-widgets/examples/debug/moc_predefs.h -ID:/QT/5.15.2/mingw81_64/mkspecs/win32-g++ -ID:/QT/poject/qt-material-widgets/examples -ID:/QT/poject/qt-material-widgets/components -ID:/QT/poject/qt-material-widgets/examples/include -ID:/QT/5.15.2/mingw81_64/include -ID:/QT/5.15.2/mingw81_64/include/QtWidgets -ID:/QT/5.15.2/mingw81_64/include/QtGui -ID:/QT/5.15.2/mingw81_64/include/QtANGLE -ID:/QT/5.15.2/mingw81_64/include/QtSql -ID:/QT/5.15.2/mingw81_64/include/QtCore -ID:/QT/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -ID:/QT/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -ID:/QT/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -ID:/QT/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -ID:/QT/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -ID:/QT/Tools/mingw810_64/x86_64-w64-mingw32/include memo.h -o debug\moc_memo.cpp
@@ -3837,7 +3848,41 @@ debug/data_time.o: data_time.cpp data_time.h \
 		D:/QT/5.15.2/mingw81_64/include/QtCore/qstringliteral.h \
 		D:/QT/5.15.2/mingw81_64/include/QtCore/qstringalgorithms.h \
 		D:/QT/5.15.2/mingw81_64/include/QtCore/qstringview.h \
-		D:/QT/5.15.2/mingw81_64/include/QtCore/qstringbuilder.h
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qstringbuilder.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/QDebug \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qdebug.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qalgorithms.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qhash.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qiterator.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qlist.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qhashfunctions.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qpair.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qvector.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qcontainertools_impl.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qpoint.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qbytearraylist.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qstringlist.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qregexp.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qstringmatcher.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qmap.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qtextstream.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qiodevice.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qobject.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qmetatype.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qvarlengtharray.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qlocale.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qvariant.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qshareddata.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qset.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qcontiguouscache.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qsharedpointer.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qsharedpointer_impl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\data_time.o data_time.cpp
 
 debug/request.o: request.cpp request.h \
@@ -3915,7 +3960,13 @@ debug/request.o: request.cpp request.h \
 		include/curl/options.h \
 		include/curl/header.h \
 		include/curl/websockets.h \
-		include/curl/typecheck-gcc.h
+		include/curl/typecheck-gcc.h \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/QSqlQuery \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqlquery.h \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/qtsqlglobal.h \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/qtsql-config.h \
+		D:/QT/5.15.2/mingw81_64/include/QtSql/qsqldatabase.h \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\request.o request.cpp
 
 debug/main.o: main.cpp D:/QT/5.15.2/mingw81_64/include/QtWidgets/QApplication \
@@ -4067,7 +4118,18 @@ debug/main.o: main.cpp D:/QT/5.15.2/mingw81_64/include/QtWidgets/QApplication \
 		../components/lib/qtmaterialtheme.h \
 		D:/QT/5.15.2/mingw81_64/include/QtCore/QObject \
 		D:/QT/5.15.2/mingw81_64/include/QtGui/QColor \
-		D:/QT/5.15.2/mingw81_64/include/QtGui/QIcon
+		D:/QT/5.15.2/mingw81_64/include/QtGui/QIcon \
+		request.h \
+		include/curl/curl.h \
+		include/curl/curlver.h \
+		include/curl/system.h \
+		include/curl/easy.h \
+		include/curl/multi.h \
+		include/curl/urlapi.h \
+		include/curl/options.h \
+		include/curl/header.h \
+		include/curl/websockets.h \
+		include/curl/typecheck-gcc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o main.cpp
 
 debug/avatarsettingseditor.o: avatarsettingseditor.cpp avatarsettingseditor.h \
@@ -4868,6 +4930,17 @@ debug/memo.o: memo.cpp memo.h \
 		D:/QT/5.15.2/mingw81_64/include/QtCore/QObject \
 		D:/QT/5.15.2/mingw81_64/include/QtGui/QColor \
 		D:/QT/5.15.2/mingw81_64/include/QtGui/QIcon \
+		request.h \
+		include/curl/curl.h \
+		include/curl/curlver.h \
+		include/curl/system.h \
+		include/curl/easy.h \
+		include/curl/multi.h \
+		include/curl/urlapi.h \
+		include/curl/options.h \
+		include/curl/header.h \
+		include/curl/websockets.h \
+		include/curl/typecheck-gcc.h \
 		ui_memo.h \
 		D:/QT/5.15.2/mingw81_64/include/QtCore/QVariant \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/QApplication \
@@ -4895,6 +4968,7 @@ debug/memo.o: memo.cpp memo.h \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qstyle.h \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qtabbar.h \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qrubberband.h \
+		D:/QT/5.15.2/mingw81_64/include/QtWidgets/QSpacerItem \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/QVBoxLayout \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/QColorDialog \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qcolordialog.h \
@@ -4908,13 +4982,16 @@ debug/memo.o: memo.cpp memo.h \
 		../components/qtmaterialraisedbutton.h \
 		data_time.h \
 		D:/QT/5.15.2/mingw81_64/include/QtCore/QString \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/QDate \
+		D:/QT/5.15.2/mingw81_64/include/QtCore/qdatetime.h \
 		../components/qtmaterialtextfield.h \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/QLineEdit \
 		D:/QT/5.15.2/mingw81_64/include/QtWidgets/qlineedit.h \
 		D:/QT/5.15.2/mingw81_64/include/QtGui/qtextcursor.h \
 		D:/QT/5.15.2/mingw81_64/include/QtGui/qtextformat.h \
 		D:/QT/5.15.2/mingw81_64/include/QtGui/qpen.h \
-		D:/QT/5.15.2/mingw81_64/include/QtGui/qtextoption.h
+		D:/QT/5.15.2/mingw81_64/include/QtGui/qtextoption.h \
+		../components/qtmaterialsnackbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\memo.o memo.cpp
 
 debug/raisedbuttonsettingseditor.o: raisedbuttonsettingseditor.cpp raisedbuttonsettingseditor.h \
