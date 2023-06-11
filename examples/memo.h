@@ -12,10 +12,14 @@
 #include <QSqlTableModel>
 #include <QSqlError>
 #include <QTimer>
+#include <qtmaterialdialog.h>
+#include <qtmaterialflatbutton.h>
+#include <request.h>
 class QtMaterialAppBar;
 class QtMaterialDrawer;
 class QtMaterialFloatingActionButton;
-
+class QtMaterialDialog;
+class QtMaterialTextField;
 namespace Ui {
 class memo;
 }
@@ -43,7 +47,10 @@ private:
     QtMaterialAppBar                    * appBar   ;
     QtMaterialDrawer                    * drawer   ;
     QtMaterialFloatingActionButton      * act_but  ;
-
+    QtMaterialDialog                    * mydialog ;
+    QtMaterialTextField                 *timeTextField;
+    QtMaterialTextField                 *eventTextField;
+    Request                             request;
 };
 
 #endif // MEMO_H

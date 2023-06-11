@@ -1,5 +1,6 @@
 release/mainwindow.o
 release/data_time.o
+release/request.o
 release/main.o
 release/avatarsettingseditor.o
 release/badgesettingseditor.o

@@ -28,9 +28,7 @@ TextFieldSettingsEditor::TextFieldSettingsEditor(QWidget *parent)
 
     m_textField->setLabel("Wat is this");
     m_textField->setMinimumWidth(250);
-
     setupForm();
-
     connect(ui->disabledCheckBox, SIGNAL(toggled(bool)), this, SLOT(updateWidget()));
     connect(ui->textLineEdit, SIGNAL(textChanged(QString)), this, SLOT(updateWidget()));
     connect(ui->placeholderLineEdit, SIGNAL(textChanged(QString)), this, SLOT(updateWidget()));
@@ -42,7 +40,6 @@ TextFieldSettingsEditor::TextFieldSettingsEditor(QWidget *parent)
     connect(ui->inputLineColorToolButton, SIGNAL(pressed()), this, SLOT(selectColor()));
     connect(ui->labelColorToolButton, SIGNAL(pressed()), this, SLOT(selectColor()));
     connect(ui->inputLineCheckBox, SIGNAL(toggled(bool)), this, SLOT(setShowInputLine()));
-
     connect(m_textField, SIGNAL(textChanged(QString)), this, SLOT(setupForm()));
 }
 

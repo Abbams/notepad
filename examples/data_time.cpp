@@ -1,6 +1,7 @@
 #include "data_time.h"
 #include <chrono>
 #include <ctime>
+#include<QDebug>
 QString data_time::putinf()
 {
 
@@ -53,7 +54,7 @@ data_time::data_time()
            digitsMap[4]= "星期四";
            digitsMap[5]= "星期五";
            digitsMap[6]= "星期六";
-           digitsMap[7]= "星期日";
+           digitsMap[0]= "星期日";
 
 
 }

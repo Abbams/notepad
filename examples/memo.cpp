@@ -12,6 +12,8 @@
 #include <qtmaterialflatbutton.h>
 #include <qtmaterialfab.h>
 #include <data_time.h>
+#include <QDate>
+#include <qtmaterialtextfield.h>
 memo::memo(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::memo)
@@ -35,12 +37,13 @@ memo::memo(QWidget *parent) :
     });
     ti->start(1000);
 
-
+    request.Run();
 
 }
 
 memo::~memo()
 {
+    data_base.close();
     delete ui;
 }
 
@@ -108,8 +111,77 @@ void memo::init_actnut()
 {
     act_but=new QtMaterialFloatingActionButton(QtMaterialTheme::icon("toggle", "star"));
     act_but->setMini(1);
-    connect(act_but,&QtMaterialRaisedButton::pressed,[](){
 
+
+    mydialog=new QtMaterialDialog;
+    mydialog->setParent(this);
+
+    QWidget *dialogWidget = new QWidget;
+    QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
+    dialogWidget->setLayout(dialogWidgetLayout);
+
+    QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
+    QtMaterialFlatButton *submitbutton = new QtMaterialFlatButton("Submit");
+    dialogWidgetLayout->addWidget(closeButton);
+    dialogWidgetLayout->addWidget(submitbutton);
+    dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom | Qt::AlignCenter);
+//    dialogWidgetLayout->setAlignment(submitbutton, Qt::AlignBottom | Qt::AlignCenter);
+    closeButton->setMaximumWidth(300);
+    QVBoxLayout *dialogLayout = new QVBoxLayout;
+    mydialog->setWindowLayout(dialogLayout);
+    QWidget *textQWidget=new QWidget;
+    QVBoxLayout *layout = new QVBoxLayout();
+
+        // 创建事件文本框
+        eventTextField = new QtMaterialTextField;
+        eventTextField->setLabel("事件");
+        eventTextField->setUseThemeColors(true);
+        layout->addWidget(eventTextField);
+
+        // 创建时间文本框
+        timeTextField = new QtMaterialTextField;
+        timeTextField->setLabel("时间");
+        timeTextField->setPlaceholderText("年-月-日 时:分:秒");
+        timeTextField->setUseThemeColors(true);
+        layout->addWidget(timeTextField);
+        textQWidget->setLayout(layout);
+    dialogWidget->setMinimumHeight(300);
+    dialogLayout->addWidget(textQWidget);
+    dialogLayout->addWidget(dialogWidget);
+    connect(closeButton, &QtMaterialFlatButton::pressed,[&](){
+    //新加待办事件
+        eventTextField->clear();
+        timeTextField->clear();
+        mydialog->hideDialog();
+
+
+    });
+    connect(submitbutton, &QtMaterialFlatButton::pressed,[&](){
+    //新加待办事件
+        QString do_text = eventTextField->text();
+        QString ti = timeTextField->text();
+        qDebug()<<"INSERT INTO \"do-thing\" (things, Time) VALUES ('"+do_text+"','"+ ti+"')";
+        QDateTime dateTime = QDateTime::fromString(ti, "yyyy-MM-dd HH:mm:ss");
+
+        QSqlQuery q;
+        q.prepare("INSERT INTO \"do-thing\" (things, Time) VALUES ('"+do_text+"','"+ ti+"')");
+
+
+        if (q.exec()) {
+            qDebug() << "Insertion successful";
+        } else {
+            qDebug() << "Insertion failed:" << q.lastError().text();
+        }
+        eventTextField->clear();
+        timeTextField->clear();
+        listmod->setQuery("select * from 'do-thing' WHERE finsh==0 ORDER BY Time DESC;");
+        ui->listView->update();
+        mydialog->hideDialog();
+
+    });
+    connect(act_but,&QtMaterialRaisedButton::pressed,[&](){
+
+       mydialog->showDialog();
     });
     act_but->setParent(ui->widget_2);
 }
@@ -127,7 +199,7 @@ void memo::open_database()
         qDebug() << "Error: Failed to connect database." << data_base.lastError();
     }
     listmod=new  QSqlQueryModel();
-    listmod->setQuery("select * from 'do-thing'") ;
+    listmod->setQuery("select * from 'do-thing' WHERE finsh==0 ORDER BY Time DESC;") ;
     ui->listView->setModel(listmod);
     ui->listView->setModelColumn(2);
     ui->listView->update();

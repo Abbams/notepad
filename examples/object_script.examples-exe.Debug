@@ -1,5 +1,6 @@
 debug/mainwindow.o
 debug/data_time.o
+debug/request.o
 debug/main.o
 debug/avatarsettingseditor.o
 debug/badgesettingseditor.o

@@ -3,6 +3,7 @@ TEMPLATE = app
 CONFIG += c++11
 SOURCES = mainwindow.cpp \
     data_time.cpp \
+    request.cpp\
     main.cpp \
     avatarsettingseditor.cpp \
     badgesettingseditor.cpp \
@@ -30,6 +31,7 @@ SOURCES = mainwindow.cpp \
 HEADERS = mainwindow.h \
     avatarsettingseditor.h \
     badgesettingseditor.h \
+    request.h\
     checkboxsettingseditor.h \
     data_time.h \
     fabsettingseditor.h \
@@ -52,8 +54,8 @@ HEADERS = mainwindow.h \
     appbarsettingseditor.h \
     autocompletesettingseditor.h \
     menusettingseditor.h
-LIBS += $$top_builddir/components/$(OBJECTS_DIR)/libcomponents.a
-INCLUDEPATH += $$top_srcdir/components/
+LIBS += $$top_builddir/components/$(OBJECTS_DIR)/libcomponents.a  D:/QT/poject/qt-material-widgets/examples/libcurl-x64.dll
+INCLUDEPATH += $$top_srcdir/components/  D:/QT/poject/qt-material-widgets/examples/include
 TARGET = examples-exe
 PRE_TARGETDEPS += $$top_builddir/components/$(OBJECTS_DIR)/libcomponents.a
 
