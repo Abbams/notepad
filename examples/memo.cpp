@@ -14,6 +14,7 @@
 #include <data_time.h>
 #include <QDate>
 #include <qtmaterialtextfield.h>
+#include <qtmaterialsnackbar.h>
 memo::memo(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::memo)
@@ -34,10 +35,44 @@ memo::memo(QWidget *parent) :
     connect(ti,&QTimer::timeout,[&](){
 
         ui->label->setText(data_time::getInstance().putinf());
+        if(data_time::getInstance().running_==true)
+        {
+            data_time::getInstance().running_=false;
+            determine();
+        }
     });
     ti->start(1000);
 
-    request.Run();
+    connect(ui->listView,&QListView::clicked,this,&memo::chang_indix);
+    //完成任务按键
+    QtMaterialFlatButton* finish = new QtMaterialFlatButton("完成");
+    finish->setParent(ui->widget_2);
+    finish->move({20,470});
+    finish->setUseThemeColors(false);
+    finish->setBackgroundColor(a1);
+    finish->setTextAlignment(Qt::AlignLeft);
+    finish->setForegroundColor(QColorConstants::White);
+//    finish->setFontSize(20);
+    finish->setFont(ui->do_thing->font());
+    finish->setDisabled(false);
+    connect(finish,&QtMaterialFlatButton::pressed,[&](){
+        QModelIndex currentIndex =ui->listView->currentIndex();
+        if(currentIndex.isValid()==false)
+            return;
+        int row = currentIndex.row();
+        data_base.exec("UPDATE 'do-thing' SET finsh = 1 WHERE things='"+  listmod->data(ui->listView->currentIndex()).toString()\
+                       +"' AND Time ='"+ listmod->data(ui->listView->currentIndex().siblingAtColumn(1)).toString()+"';");
+        if (row < listmod->rowCount()) {
+                // 如果还有下一个项，则选择下一个项
+                ui->listView->setCurrentIndex(listmod->index(row+1, 2));
+            } else if (row > 0) {
+                // 如果没有下一个项但有上一个项，则选择上一个项
+                ui->listView->setCurrentIndex(listmod->index(row - 1, 2));
+            }
+        ui->do_thing->clear();
+        ui->do_time->clear();
+        reload();
+    });
 
 }
 
@@ -102,6 +137,12 @@ void memo::init_drawer()
         drawer->drawerLayout()->addWidget(label);
 
     }
+    QtMaterialFlatButton* label = new QtMaterialFlatButton("更新cf比赛");
+   label->setBackgroundColor(a3);
+   label->setMaximumHeight(30);
+   label->setFont(QFont("Roboto", 10, QFont::Medium));
+   drawer->drawerLayout()->addWidget(label);
+    connect(label,&QtMaterialFlatButton::pressed,this,&memo::updata_codeforce);
     drawer->setClickOutsideToClose(true);
     drawer->setOverlayMode(true);
     drawerLayout->setAlignment(Qt::AlignTop);
@@ -111,8 +152,8 @@ void memo::init_actnut()
 {
     act_but=new QtMaterialFloatingActionButton(QtMaterialTheme::icon("toggle", "star"));
     act_but->setMini(1);
-
-
+    m_snackbar=new QtMaterialSnackbar(this);
+    m_snackbar->addMessage("test");
     mydialog=new QtMaterialDialog;
     mydialog->setParent(this);
 
@@ -125,7 +166,6 @@ void memo::init_actnut()
     dialogWidgetLayout->addWidget(closeButton);
     dialogWidgetLayout->addWidget(submitbutton);
     dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom | Qt::AlignCenter);
-//    dialogWidgetLayout->setAlignment(submitbutton, Qt::AlignBottom | Qt::AlignCenter);
     closeButton->setMaximumWidth(300);
     QVBoxLayout *dialogLayout = new QVBoxLayout;
     mydialog->setWindowLayout(dialogLayout);
@@ -145,42 +185,33 @@ void memo::init_actnut()
         timeTextField->setUseThemeColors(true);
         layout->addWidget(timeTextField);
         textQWidget->setLayout(layout);
-    dialogWidget->setMinimumHeight(300);
-    dialogLayout->addWidget(textQWidget);
-    dialogLayout->addWidget(dialogWidget);
-    connect(closeButton, &QtMaterialFlatButton::pressed,[&](){
-    //新加待办事件
-        eventTextField->clear();
-        timeTextField->clear();
-        mydialog->hideDialog();
+        dialogWidget->setMinimumHeight(300);
+        dialogLayout->addWidget(textQWidget);
+        dialogLayout->addWidget(dialogWidget);
+        connect(closeButton, &QtMaterialFlatButton::pressed,[&](){
+            //初始化面板
+            eventTextField->clear();
+            timeTextField->clear();
+            mydialog->hideDialog();
 
 
-    });
+        });
     connect(submitbutton, &QtMaterialFlatButton::pressed,[&](){
-    //新加待办事件
+        //新加待办事件
         QString do_text = eventTextField->text();
         QString ti = timeTextField->text();
-        qDebug()<<"INSERT INTO \"do-thing\" (things, Time) VALUES ('"+do_text+"','"+ ti+"')";
-        QDateTime dateTime = QDateTime::fromString(ti, "yyyy-MM-dd HH:mm:ss");
-
         QSqlQuery q;
         q.prepare("INSERT INTO \"do-thing\" (things, Time) VALUES ('"+do_text+"','"+ ti+"')");
-
-
-        if (q.exec()) {
-            qDebug() << "Insertion successful";
-        } else {
-            qDebug() << "Insertion failed:" << q.lastError().text();
-        }
+        q.exec();
+        //初始化面板
         eventTextField->clear();
         timeTextField->clear();
-        listmod->setQuery("select * from 'do-thing' WHERE finsh==0 ORDER BY Time DESC;");
-        ui->listView->update();
+        reload();
         mydialog->hideDialog();
 
     });
     connect(act_but,&QtMaterialRaisedButton::pressed,[&](){
-
+        timeTextField->setText(data_time::getInstance().data());
        mydialog->showDialog();
     });
     act_but->setParent(ui->widget_2);
@@ -199,8 +230,60 @@ void memo::open_database()
         qDebug() << "Error: Failed to connect database." << data_base.lastError();
     }
     listmod=new  QSqlQueryModel();
-    listmod->setQuery("select * from 'do-thing' WHERE finsh==0 ORDER BY Time DESC;") ;
+    listmod->setQuery("select * from 'do-thing' WHERE finsh==0 ORDER BY Time  ;") ;
     ui->listView->setModel(listmod);
     ui->listView->setModelColumn(2);
     ui->listView->update();
+}
+
+void memo::updata_codeforce()
+{
+    request.Run();
+    reload();
+}
+
+void memo::chang_indix(const QModelIndex &index)
+{
+    auto tzzt=[](QLabel *label){
+        // 设置自动换行
+        label->setWordWrap(true);
+
+        // 设置对齐方式，可以根据需要设置
+        label->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+    };
+    QVariant data = listmod->data(index, Qt::DisplayRole);
+    QString str=data.toString();
+    ui->do_thing->setText(str);
+    tzzt(ui->do_thing);
+    data = listmod->data(index.siblingAtColumn(1), Qt::DisplayRole);
+    str=data.toString();
+    ui->do_time->setText(str);
+    tzzt(ui->do_time);
+}
+
+void memo::reload()
+{
+    listmod->setQuery("select * from 'do-thing' WHERE finsh==0 ORDER BY Time  ;");
+    ui->listView->update();
+}
+
+void memo::determine()
+{
+    QSqlQuery q(data_base);
+
+            q.exec("SELECT * FROM 'do-thing' WHERE time >= '"+data_time::getInstance().data()+"' and finsh=0 ORDER BY time ASC LIMIT 1;");
+            q.next();
+            qDebug()<<data_time::getInstance().data();
+            qDebug()<<q.value(1).toString();
+    if(data_time::getInstance().data()==q.value(1).toString())
+    {
+        qDebug()<<"!!!!!!!!!";
+        data_base.exec("UPDATE 'do-thing'\
+                       SET finsh=1\
+                       WHERE uid = "+q.value(0).toString()+";");
+        m_snackbar->addMessage(q.value(2).toString());
+
+        reload();
+    }
+
 }

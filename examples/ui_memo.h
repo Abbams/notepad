@@ -14,6 +14,8 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,6 +27,11 @@ public:
     QWidget *widget;
     QWidget *widget_2;
     QLabel *label;
+    QWidget *verticalLayoutWidget;
+    QVBoxLayout *verticalLayout;
+    QLabel *do_thing;
+    QSpacerItem *verticalSpacer;
+    QLabel *do_time;
     QListView *listView;
     QWidget *widget_appbar;
 
@@ -51,6 +58,28 @@ public:
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(20, 10, 261, 221));
         label->setStyleSheet(QString::fromUtf8("color:white;font:60px \\\"Microsoft YaHei\\\",simhei;font-weight:regular;"));
+        verticalLayoutWidget = new QWidget(widget_2);
+        verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
+        verticalLayoutWidget->setGeometry(QRect(20, 220, 261, 231));
+        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        do_thing = new QLabel(verticalLayoutWidget);
+        do_thing->setObjectName(QString::fromUtf8("do_thing"));
+        do_thing->setStyleSheet(QString::fromUtf8("color:white;font:30px \\\"Microsoft YaHei\\\",simhei;font-weight:regular;"));
+
+        verticalLayout->addWidget(do_thing);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
+
+        verticalLayout->addItem(verticalSpacer);
+
+        do_time = new QLabel(verticalLayoutWidget);
+        do_time->setObjectName(QString::fromUtf8("do_time"));
+        do_time->setStyleSheet(QString::fromUtf8("color:white;font:30px \\\"Microsoft YaHei\\\",simhei;font-weight:regular;"));
+
+        verticalLayout->addWidget(do_time);
+
         listView = new QListView(widget);
         listView->setObjectName(QString::fromUtf8("listView"));
         listView->setGeometry(QRect(10, 10, 471, 531));
@@ -73,6 +102,8 @@ public:
         label->setText(QCoreApplication::translate("memo", "12:20:12\n"
 "\346\230\237\346\234\237\344\272\214\n"
 "6/12", nullptr));
+        do_thing->setText(QCoreApplication::translate("memo", "\344\272\213\344\273\266", nullptr));
+        do_time->setText(QCoreApplication::translate("memo", "\346\227\266\351\227\264", nullptr));
     } // retranslateUi
 
 };

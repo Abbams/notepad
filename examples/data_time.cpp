@@ -8,9 +8,16 @@ QString data_time::putinf()
     QString res;
     res+=QString(std::to_string(hour).c_str());
     res+=':';
+    if(minutes<10)
+        res+="0";
     res+=QString( std::to_string(minutes).c_str());
+
     res+=':';
+    if(second<10)
+        res+="0";
     res+=QString( std::to_string(second).c_str());
+    ti_data=ti_data.mid(0,11);
+    ti_data+=res;
     res+='\n';
     res+=QString( digitsMap[week]);
     res+='\n';
@@ -21,6 +28,7 @@ QString data_time::putinf()
     second+=1;
     if(second==60)
         second=0,minutes+=1;
+    running_=true;
     if(minutes==60)
         minutes=0,hour+=1;
     if(hour==24)
@@ -28,6 +36,11 @@ QString data_time::putinf()
 
     return res;
 
+}
+
+QString data_time::data()
+{
+    return ti_data;
 }
 
 data_time::data_time()
@@ -55,6 +68,8 @@ data_time::data_time()
            digitsMap[5]= "星期五";
            digitsMap[6]= "星期六";
            digitsMap[0]= "星期日";
-
+           char buffer[80];
+           strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", localTime);
+           ti_data=QString::fromUtf8(buffer);
 
 }

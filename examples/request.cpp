@@ -1,5 +1,5 @@
 #include "request.h"
-
+#include <QString>
 
 Request::Request()
 {
@@ -17,8 +17,6 @@ std::map<int,std::string>p;
 
 void coming(contest c){
     long long starttime=stol(c.startTimeSeconds);
-
-    std::cout <<'\n';
     time_t timestamp=starttime;
     struct tm *timeinfo;
 
@@ -28,9 +26,13 @@ void coming(contest c){
     // 调整时区为UTC+8
     timeinfo->tm_hour += 8;
     mktime(timeinfo);
-
-//    std::cout << std::put_time(timeinfo, "%Y-%m-%d %H:%M:%S")<<'\n';
-
+  QString do_text(c.name.c_str());
+  char buffer[80];
+  strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", timeinfo);
+  QString ti = QString::fromUtf8(buffer);
+  QSqlQuery q;
+  q.prepare("INSERT INTO \"do-thing\" (things, Time) VALUES ('"+do_text+"','"+ ti+"')");
+  q.exec();
 
 }
 

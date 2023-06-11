@@ -11,13 +11,14 @@ class data_time
         return instance;
     }
     QString putinf();
+    QString data();
+    bool running_ = false;
 private:
 
     data_time();
     data_time(const data_time&) = delete;
     data_time& operator=(const data_time&) = delete;
     std::map<int,QString> digitsMap ;
-    bool running_ = false;
     int week;
     int year;
     int month;
@@ -25,6 +26,7 @@ private:
     int hour;
     int minutes;
     int second;
+    QString ti_data;
 };
 
 #endif // DATA_TIME_H

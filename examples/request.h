@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <ctime>
 #include <iostream>
-
+#include <QSqlQuery>
 class Request
 {
 public:

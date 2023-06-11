@@ -20,6 +20,7 @@ class QtMaterialDrawer;
 class QtMaterialFloatingActionButton;
 class QtMaterialDialog;
 class QtMaterialTextField;
+class QtMaterialSnackbar;
 namespace Ui {
 class memo;
 }
@@ -35,6 +36,10 @@ public:
     void init_drawer();
     void init_actnut();
     void open_database();
+    void updata_codeforce();
+    void chang_indix(const QModelIndex &index);
+    void reload();
+    void determine();
 private:
     Ui::memo *ui;
     QColor a1;
@@ -51,6 +56,7 @@ private:
     QtMaterialTextField                 *timeTextField;
     QtMaterialTextField                 *eventTextField;
     Request                             request;
+    QtMaterialSnackbar                  * m_snackbar;
 };
 
 #endif // MEMO_H
