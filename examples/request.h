@@ -12,7 +12,7 @@ class Request
 {
 public:
     Request();
-    void Run();
+    void run();
 };
 
 #endif // REQUEST_H

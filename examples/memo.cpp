@@ -19,6 +19,7 @@ memo::memo(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::memo)
 {
+
     ui->setupUi(this);
     open_database();
     appBar=new QtMaterialAppBar(ui->widget_appbar);
@@ -28,38 +29,50 @@ memo::memo(QWidget *parent) :
     a2=QColor(170, 119, 255);
     a3=QColor(1,1,1);
     a4=QColor(110,231,214);
+    //初始化顶部任务栏
     init_appbar();
+    //初始化新加按键与弹出框
     init_actnut();
+
     this->setContentsMargins(0, 0, 0, 0);
+    //设置时钟更新，1秒钟更新一次
     QTimer *ti=new QTimer;
     connect(ti,&QTimer::timeout,[&](){
 
+        //直接调用时钟类的输出函数
         ui->label->setText(data_time::getInstance().putinf());
+        //检测并没有精确到秒，而是分钟
         if(data_time::getInstance().running_==true)
         {
+
             data_time::getInstance().running_=false;
             determine();
         }
     });
     ti->start(1000);
-
+    //链接列表点击与右信息栏更新函数
     connect(ui->listView,&QListView::clicked,this,&memo::chang_indix);
     //完成任务按键
     QtMaterialFlatButton* finish = new QtMaterialFlatButton("完成");
+
+    //美化按键
     finish->setParent(ui->widget_2);
     finish->move({20,470});
     finish->setUseThemeColors(false);
     finish->setBackgroundColor(a1);
     finish->setTextAlignment(Qt::AlignLeft);
     finish->setForegroundColor(QColorConstants::White);
-//    finish->setFontSize(20);
     finish->setFont(ui->do_thing->font());
     finish->setDisabled(false);
+
+    //链接按键点击与数据库更新 ————当点击完成就把当前选择项的完成标志设置1
     connect(finish,&QtMaterialFlatButton::pressed,[&](){
+        //找到当前选择项的索引
         QModelIndex currentIndex =ui->listView->currentIndex();
         if(currentIndex.isValid()==false)
             return;
         int row = currentIndex.row();
+        //更新 名字等于当前事件名字，时间等于当前事件时间的finsh为1
         data_base.exec("UPDATE 'do-thing' SET finsh = 1 WHERE things='"+  listmod->data(ui->listView->currentIndex()).toString()\
                        +"' AND Time ='"+ listmod->data(ui->listView->currentIndex().siblingAtColumn(1)).toString()+"';");
         if (row < listmod->rowCount()) {
@@ -69,8 +82,10 @@ memo::memo(QWidget *parent) :
                 // 如果没有下一个项但有上一个项，则选择上一个项
                 ui->listView->setCurrentIndex(listmod->index(row - 1, 2));
             }
+        //清除数据
         ui->do_thing->clear();
         ui->do_time->clear();
+        //重新加载数据库和listview
         reload();
     });
 
@@ -84,6 +99,7 @@ memo::~memo()
 
 void memo::init_appbar()
 {
+    //该函数就只是创建与美化
     //文字
     QLabel *label = new QLabel("menu");
     label->setAttribute(Qt::WA_TranslucentBackground);
@@ -104,7 +120,7 @@ void memo::init_appbar()
 //    use_img->setParent(this);
     use_img->setImage(QImage(":/images/assets/sikh.jpg"));
     use_img->setSize(33);
-
+    //初始化侧边弹出栏
     init_drawer();
     //添加组件
     appBar->setBackgroundColor(a1);
@@ -113,6 +129,7 @@ void memo::init_appbar()
     appBar->appBarLayout()->addWidget(use_img);
     appBar->setParent(ui->widget_appbar);
     appBar->setFixedSize({800,50});
+
     connect(button,&QtMaterialIconButton::pressed,[&](){
 
         drawer->openDrawer();
@@ -123,7 +140,7 @@ void memo::init_appbar()
 
 void memo::init_drawer()
 {
-
+    //该函数就只是创建与美化
     QVBoxLayout *drawerLayout = new QVBoxLayout;
     drawer->setDrawerLayout(drawerLayout);
     QVector<QString> labels={"设置","待办"};
@@ -137,6 +154,7 @@ void memo::init_drawer()
         drawer->drawerLayout()->addWidget(label);
 
     }
+    //新增一个按键，手动更新比赛信息
     QtMaterialFlatButton* label = new QtMaterialFlatButton("更新cf比赛");
    label->setBackgroundColor(a3);
    label->setMaximumHeight(30);
@@ -150,16 +168,17 @@ void memo::init_drawer()
 
 void memo::init_actnut()
 {
+    //初始化新加按键与弹出框
     act_but=new QtMaterialFloatingActionButton(QtMaterialTheme::icon("toggle", "star"));
     act_but->setMini(1);
     m_snackbar=new QtMaterialSnackbar(this);
-//    m_snackbar->addMessage("test");
     mydialog=new QtMaterialDialog;
     mydialog->setParent(this);
 
     QWidget *dialogWidget = new QWidget;
     QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
     dialogWidget->setLayout(dialogWidgetLayout);
+
 
     QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
     QtMaterialFlatButton *submitbutton = new QtMaterialFlatButton("Submit");
@@ -219,6 +238,7 @@ void memo::init_actnut()
 
 void memo::open_database()
 {
+    //数据库链接
     data_base = QSqlDatabase::database("qt_sql_default_connection");
   data_base = QSqlDatabase::addDatabase("QSQLITE");
     data_base.setDatabaseName("MEMO_data.db");
@@ -229,6 +249,7 @@ void memo::open_database()
     {
         qDebug() << "Error: Failed to connect database." << data_base.lastError();
     }
+    //数据库表的建立
     QSqlQuery query;
     // 禁用外键约束
     query.exec("PRAGMA foreign_keys = false");
@@ -245,7 +266,7 @@ void memo::open_database()
                " PRIMARY KEY ('id')"
                ")");
 
-    // 创建唯一索引
+    // 创建唯一索引 以时间和事件为联合主键
     query.exec("CREATE UNIQUE INDEX 'unique_columns' ON 'do-thing' ('Time' ASC, 'things' ASC)");
 
     // 启用外键约束
@@ -261,6 +282,7 @@ void memo::open_database()
 
 
     listmod=new  QSqlQueryModel();
+    //选择未完成的事件，按时间升序排列
     listmod->setQuery("select * from 'do-thing' WHERE finsh==0 ORDER BY Time  ;") ;
     ui->listView->setModel(listmod);
     ui->listView->setModelColumn(2);
@@ -269,12 +291,15 @@ void memo::open_database()
 
 void memo::updata_codeforce()
 {
-    request.Run();
+    //调用请求函数
+    request.run();
+    //重新加载
     reload();
 }
 
 void memo::chang_indix(const QModelIndex &index)
 {
+    //更新字体
     auto tzzt=[](QLabel *label){
         // 设置自动换行
         label->setWordWrap(true);
@@ -282,6 +307,7 @@ void memo::chang_indix(const QModelIndex &index)
         // 设置对齐方式，可以根据需要设置
         label->setAlignment(Qt::AlignTop | Qt::AlignLeft);
     };
+    //得到数据赋值给文本框
     QVariant data = listmod->data(index, Qt::DisplayRole);
     QString str=data.toString();
     ui->do_thing->setText(str);
@@ -294,6 +320,7 @@ void memo::chang_indix(const QModelIndex &index)
 
 void memo::reload()
 {
+    //重新加载
     listmod->setQuery("select * from 'do-thing' WHERE finsh==0 ORDER BY Time  ;");
     ui->listView->update();
 }
@@ -301,19 +328,19 @@ void memo::reload()
 void memo::determine()
 {
     QSqlQuery q(data_base);
-
+            //查找先到达的时间事件
             q.exec("SELECT * FROM 'do-thing' WHERE time >= '"+data_time::getInstance().data()+"' and finsh=0 ORDER BY time ASC LIMIT 1;");
             q.next();
-//            qDebug()<<data_time::getInstance().data();
-//            qDebug()<<q.value(1).toString();
+            //判断时间是否相等
     if(data_time::getInstance().data()==q.value(1).toString())
     {
-//        qDebug()<<"!!!!!!!!!";
+
         data_base.exec("UPDATE 'do-thing'\
                        SET finsh=1\
                        WHERE uid = "+q.value(0).toString()+";");
+        //弹出提示框
         m_snackbar->addMessage(q.value(2).toString());
-
+        //重新加载
         reload();
     }
 
